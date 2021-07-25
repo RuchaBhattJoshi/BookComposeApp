@@ -19,27 +19,34 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.bookcomposeapp.ui.theme.primary
 import com.example.bookcomposeapp.ui.theme.text
+import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-fun ItemBookList() {
+fun ItemBookList( title: String,
+                  author: String,
+                  thumbnailUrl: String,
+                  categories: List<String>,
+                  onItemClick: () -> Unit) {
     //main component
-    Card(  modifier = Modifier
-        .fillMaxWidth()
-        .wrapContentHeight()
-        .background(MaterialTheme.colors.background)
-        .clip(RoundedCornerShape(20.dp))
-        .padding(12.dp))
+    Card(modifier = Modifier
+            .clickable(onClick = onItemClick)
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .background(MaterialTheme.colors.background)
+            .clip(RoundedCornerShape(20.dp))
+            .padding(12.dp))
     {
         //Row = image + content of book
-        Row(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.onSurface),
-        horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.CenterVertically){
+        Row(
+            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.onSurface),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
             // Image
             Image(
                 painter = rememberImagePainter(
-                    data = "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/umali.jpg"
-                ),
+                    data = thumbnailUrl ),
                 contentDescription = null,
                 modifier = Modifier
                     .size(98.dp, 145.dp)
@@ -52,24 +59,25 @@ fun ItemBookList() {
             //book content
             Column {
 
-                Text(text = "Rucha", style = typography.caption, color = text.copy(0.75F))
+                Text(text = "b".plus(author), style = typography.caption, color = text.copy(0.75F))
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text(text = "bla ", style = typography.subtitle1, color = text)
+                Text(text = title, style = typography.subtitle1, color = text)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text(text = "Author", style = typography.caption, color = primary)
-                Spacer(modifier = Modifier.height(12.dp))
-
-                ChipView()
+                FlowRow {
+                    categories.forEach {
+                        ChipView(category = it)
+                    }
+                }
             }
         }
-    }
 
+    }
 }
 
 @Composable
-fun ChipView() {
+fun ChipView(category: String) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp))
