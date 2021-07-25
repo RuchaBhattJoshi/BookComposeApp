@@ -7,25 +7,22 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = primaryNight,
+    primaryVariant = textNight,
+    secondary = Teal200,
+    onSurface = cardNight,
+    background = backgroundNight
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = primary,
+    primaryVariant = text,
+    secondary = Teal200,
+    onSurface = card,
+    background = background
 
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
 )
+
 
 @Composable
 fun BookComposeAppTheme(
@@ -40,7 +37,7 @@ fun BookComposeAppTheme(
 
     MaterialTheme(
         colors = colors,
-        typography = Typography,
+        typography = typography,
         shapes = Shapes,
         content = content
     )
